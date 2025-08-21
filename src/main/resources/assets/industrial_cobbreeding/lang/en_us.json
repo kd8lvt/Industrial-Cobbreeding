@@ -1,5 +1,2 @@
-{
-  "itemGroup.industrial_cobbreeding": "Example Mod Tab",
-  "block.industrial_cobbreeding.example_block": "Example Block",
-  "item.industrial_cobbreeding.example_item": "Example Item"
+{  "industrialcobbreeding.display_source.pasture": "Tethered Pokemon List"
 }

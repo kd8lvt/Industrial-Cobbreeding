@@ -1,27 +1,23 @@
 package com.kd8lvt.industrial_cobbreeding.registry;
 
 import com.kd8lvt.industrial_cobbreeding.attributes.EggAttribute;
-import com.simibubi.create.api.registry.CreateBuiltInRegistries;
+import com.simibubi.create.api.registry.CreateRegistries;
 import com.simibubi.create.content.logistics.item.filter.attribute.ItemAttributeType;
-import net.minecraft.resources.ResourceLocation;
-import net.neoforged.neoforge.registries.RegisterEvent;
+import com.tterrag.registrate.util.entry.RegistryEntry;
+import com.tterrag.registrate.util.nullness.NonNullSupplier;
 
-import static com.kd8lvt.industrial_cobbreeding.IndustrialCobbreeding.MOD_ID;
+import static com.kd8lvt.industrial_cobbreeding.IndustrialCobbreeding.C_REG;
+import static com.kd8lvt.industrial_cobbreeding.IndustrialCobbreeding.LOGGER;
 
-public final class AttributeTypeRegistry {
-    private static RegisterEvent reg;
+public final class ItemAttributeTypeRegistry {
+    public static RegistryEntry<ItemAttributeType,ItemAttributeType> EGG;
 
-    public static void registerAll(RegisterEvent reg) {
-        AttributeTypeRegistry.reg=reg;
-
-        register("pokemon_egg", new EggAttribute.Type());
+    public static void registerAll() {
+        LOGGER.info("Registering Item Attributes...");
+        EGG=register("pokemon_egg", EggAttribute.Type::new);
     }
 
-    public static ResourceLocation id(String path) {
-        return ResourceLocation.fromNamespaceAndPath(MOD_ID,path);
-    }
-
-    public static <T extends ItemAttributeType> void register(String id, T thing) {
-        reg.register(CreateBuiltInRegistries.ITEM_ATTRIBUTE_TYPE.key(),id(id),()->thing);
+    public static RegistryEntry<ItemAttributeType, ItemAttributeType> register(String id, NonNullSupplier<ItemAttributeType> thing) {
+        return C_REG.simple(id,CreateRegistries.ITEM_ATTRIBUTE_TYPE,thing);
     }
 }
